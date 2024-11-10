@@ -99,7 +99,7 @@ const tokenData={
 }
 
 const token = await jwt.sign(tokenData, process.env.SECRET_KEY,{ expiresIn:'1d' }) 
-res.cookie('token',token,{maxAge:1*24*60*60*1000,httpsOnly:true,sameSite:"None"}).json({
+res.cookie('token',token,{maxAge:1*24*60*60*1000,httpsOnly:true,sameSite:"None", secure: true}).json({
     message:`Welcome Back ${user.fullname}`,
     user:user,
     sucess:true,
