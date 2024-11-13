@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(morgan('dev'))
 const corsOptions={
-    origin:"https://careernest-j9hf.onrender.com",
+    origin:"https://jobportalclient-3hoh.onrender.com",
     credentials:true,
 }
 app.use(cors(corsOptions));
