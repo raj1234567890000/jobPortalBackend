@@ -103,6 +103,7 @@ res.cookie('token',token,{maxAge:1*24*60*60*1000,httpOnly:true,secure:true, Same
     message:`Welcome Back ${user.fullname}`,
     user:user,
     sucess:true,
+    token:token
 })
 
     }catch(err){
