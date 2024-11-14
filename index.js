@@ -23,7 +23,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(morgan('dev'))
 const corsOptions = {
-    origin: process.env.CLIENT_URL || "http://jobportalclient-3hoh.onrender.com",
+    origin: process.env.CLIENT_URL || "https://jobportalclient-3hoh.onrender.com",
     credentials: true,
 };
 app.use(cors(corsOptions));
