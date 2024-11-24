@@ -1,5 +1,5 @@
 import express from"express";
-import { getAdminJobs, getAllJobs, getJobById, postJob } from "../Controllers/jobcontoller.js";
+import { deleteJobController, getAdminJobs, getAllJobs, getJobById, postJob } from "../Controllers/jobcontoller.js";
 import isAuthenticate from "../Middleware/isAuthenticate.js";
 
 
