@@ -145,3 +145,23 @@ return res.status(200).json({
     }
 }
 
+//delte job
+
+export const  deleteJobController=async(req,res)=>{
+    try{
+        const{id}=req.params;
+        await Job.findByIdAndDelete(id);
+        res.status(200).send({
+            success:true,
+            message:"Job delete succssefully"
+        })
+
+    }catch(error){
+console.log(error)
+res.status(500).send({
+    success:false,
+    message:"errro in Job company",
+    error
+})
+    }
+}

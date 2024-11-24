@@ -131,3 +131,24 @@ export const updateCompany=async(req,res)=>{
         })
     }
 }
+
+//delte company
+
+export const  deleteCompanyController=async(req,res)=>{
+    try{
+        const{id}=req.params;
+        await Compnay.findByIdAndDelete(id);
+        res.status(200).send({
+            success:true,
+            message:"company delete succssefully"
+        })
+
+    }catch(error){
+console.log(error)
+res.status(500).send({
+    success:false,
+    message:"errro in deleting company",
+    error
+})
+    }
+}
