@@ -145,6 +145,11 @@ return res.status(200).json({
     }
 }
 
+
+//update company here
+
+
+
 //delte job
 
 export const  deleteJobController=async(req,res)=>{
