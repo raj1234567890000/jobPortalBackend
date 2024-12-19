@@ -28,19 +28,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.set('view engine', 'ejs');
-app.set('views', path.resolve( './views'));
+app.set('views', path.resolve( '/views'));
 app.use(express.urlencoded({ extended: false }));
-
-//deploy path here
-
-//const _dirname=path.resolve();
-
-//app.use(express.static(path.join(_dirname,"/client/dist")))
-//app.get('*',(_,res)=>{
-  //  res.sendFile(path.resolve(_dirname,"client","dist","index.html"))
-//})
-
-
 
 //rest api
 
