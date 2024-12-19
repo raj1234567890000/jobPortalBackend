@@ -27,7 +27,7 @@ const corsOptions = {
     credentials: true,
 };
 app.use(cors(corsOptions));
-app.set("view engine", "ejs");
+app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 
 //deploy path here
