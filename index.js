@@ -30,6 +30,7 @@ app.use(cors(corsOptions));
 app.set('view engine', 'ejs');
 app.set('views', path.resolve( '/views'));
 app.use(express.urlencoded({ extended: false }));
+console.log(path.resolve('/views'));
 
 //rest api
 
