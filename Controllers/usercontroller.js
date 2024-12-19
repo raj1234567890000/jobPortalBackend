@@ -193,3 +193,97 @@ return res.status(200).json({
         res.status(500).send({message:"Error updating profile"})
     }
 }
+
+
+//forget password api here
+
+
+export const ForgetPassword=async(req,res)=>{
+    const { email } = req.body;
+    try {
+      const oldUser = await User.findOne({ email });
+      if (!oldUser) {
+        return res.json({ status: "User Not Exists!!" });
+      }
+      const secret =process.env.SECRET_KEY + oldUser.password;
+      const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
+        expiresIn: "10m",
+      });
+      const link = `http://localhost:8080/api/v1/user/reset-password/${oldUser._id}/${token}`;
+      console.log({link})
+      var transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: "rajputrohitbcs@gmail.com",
+          pass: "cffs mkyp hvtj srdm",
+        },
+      });
+      
+  
+      var mailOptions = {
+        from: "rajputrohitbcs@gmail.com",
+        to: email,
+        subject: " Reset Your Password",
+        text: link,
+      };
+  
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log("Email sent: " + info.response);
+        }
+      });
+      console.log(link);
+    } catch (error) {}
+}
+
+//reset password
+export const ResetPassword=async(req,res)=>{
+   
+    const { id, token } = req.params;
+    console.log(req.params);
+    const oldUser = await User.findOne({ _id: id });
+    if (!oldUser) {
+      return res.json({ status: "User Not Exists!!" });
+    }
+    const secret = process.env.SECRET_KEY + oldUser.password;
+    try {
+      const verify = jwt.verify(token, secret);
+      res.render("index", { email: verify.email, status: "Not Verified" });
+    } catch (error) {
+      console.log(error);
+      res.send("Not Verified");
+    }
+   
+}
+export const PostResetPassword=async(req,res)=>{
+    const { id, token } = req.params;
+  const { password } = req.body;
+
+  const oldUser = await User.findOne({ _id: id });
+  if (!oldUser) {
+    return res.json({ status: "User Not Exists!!" });
+  }
+  const secret = process.env.SECRET_KEY + oldUser.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    await User.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: {
+          password: encryptedPassword,
+        },
+      }
+    );
+
+    res.render("index", { email: verify.email, status: "verified" });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "Something Went Wrong" });
+  }
+   
+}
