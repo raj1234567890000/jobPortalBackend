@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import getDataUri from "../utils/DataUri.js";
 import cloudinary from "../utils/Cloudinary.js";
+import nodemailer from 'nodemailer' 
 
 
 
@@ -209,7 +210,7 @@ export const ForgetPassword=async(req,res)=>{
       const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
         expiresIn: "10m",
       });
-      const link = `http://localhost:8080/api/v1/user/reset-password/${oldUser._id}/${token}`;
+      const link = `https://careernestbackend.onrender.com/api/v1/user/reset-password/${oldUser._id}/${token}`;
       console.log({link})
       var transporter = nodemailer.createTransport({
         service: "gmail",
