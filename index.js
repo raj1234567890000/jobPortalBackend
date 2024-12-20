@@ -9,14 +9,14 @@ import CompanyRoute from './Routes/companyroute.js'
 import JobRoute from "./Routes/jobroute.js"
 import ApplicationRoute from "./Routes/applicationroute.js"
 import path from 'path';
-
+import { URL } from "url";
 
 
 
 
 const app=express();
 dotenv.config({});
-
+const __dirname = new URL('.', import.meta.url).pathname;
 
 //middleware
 app.use(express.json());
@@ -29,15 +29,20 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.set('view engine', 'ejs');
-app.set('views', path.resolve('./views'));
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+
+server.get("/", (req, res) => {
+  res.render("index.ejs");
+});
 app.use(express.urlencoded({ extended: false }));
 
 
 //rest api
 
-app.get('/',(req,res)=>{
-    res.send('<h1>hello backend server</h1>')
-})
+
 
 //all apis here
 app.use('/api/v1/user',userRoute)
