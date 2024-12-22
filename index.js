@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // View engine setup
 app.set('view engine', 'ejs');
-app.set("views", path.resolve("views")); 
+app.set("views", path.resolve("project/src/views")); 
 app.use(express.static("public"));
 
 // Routes
